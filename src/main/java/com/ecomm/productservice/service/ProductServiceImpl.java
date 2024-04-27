@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.ecomm.productservice.entity.Product;
+import com.ecomm.productservice.exception.ProductServiceCustomException;
 import com.ecomm.productservice.model.ProductRequest;
 import com.ecomm.productservice.model.ProductResponse;
 import com.ecomm.productservice.repository.ProductRepository;
@@ -41,7 +42,7 @@ public class ProductServiceImpl implements ProductSevice{
         
         log.info("Get the product related to that product Id : {}",productId);
 
-        Product product = productRepository.findById(productId).orElseThrow(()-> new RuntimeException("Product with given id not found"));
+        Product product = productRepository.findById(productId).orElseThrow(()-> new ProductServiceCustomException("Product with given id not found","PRODUCT_NOT_FOUND"));
 
         ProductResponse productResponse = ProductResponse
         .builder()
