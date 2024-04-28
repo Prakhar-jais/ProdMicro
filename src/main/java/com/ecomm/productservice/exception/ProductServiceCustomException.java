@@ -1,5 +1,8 @@
 package com.ecomm.productservice.exception;
 
+import lombok.Data;
+
+@Data
 public class ProductServiceCustomException extends RuntimeException  {
     
     private String errorCode ;
