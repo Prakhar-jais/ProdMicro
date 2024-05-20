@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.PutMapping;
+
 
 
 @RestController
@@ -43,6 +45,16 @@ public class ProductController {
         ProductResponse productResponse = productService.getProductById(productId);
 
         return new ResponseEntity<>(productResponse,HttpStatus.OK);
+    }
+
+
+    @PutMapping("reduceQuantity/{id}")
+ 
+    public ResponseEntity<String> reduceQuantity(@PathVariable("id") long productId,@RequestParam long quantity){
+
+
+        productService.reduceQuantity(productId,quantity);
+        return new ResponseEntity<>("Quantity Updated ",HttpStatus.OK);
     }
 
 

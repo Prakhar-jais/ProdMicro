@@ -53,6 +53,22 @@ public class ProductServiceImpl implements ProductSevice{
         .build() ;
         return productResponse;
     }
+
+    @Override
+    public void reduceQuantity(long productId, long quantity) {
+        // TODO Auto-generated method stub
+        log.info("Reduce Quantity {} for Id : {}",quantity,productId);
+
+        Product product = productRepository.findById(productId).orElseThrow(()->new ProductServiceCustomException("Product With Given Id No Found", "PRODUCT_NOT_FOUND") );
+        
+        if(product.getQuantity()<quantity){
+            throw new ProductServiceCustomException("Product does not have sufficient Quantity", "INSUFFICIENT_QUANTITY");
+        }
+
+        product.setQuantity(product.getQuantity()-quantity);
+        productRepository.save(product);
+        log.info("Product Quantity Updated Successfully");
+    }
     
     
 }

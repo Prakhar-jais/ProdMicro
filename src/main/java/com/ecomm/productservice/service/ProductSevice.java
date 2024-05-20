@@ -9,6 +9,8 @@ public interface ProductSevice {
 
     public ProductResponse getProductById(long productId);
 
+    public void reduceQuantity(long productId, long quantity);
+
     
     
 }
