@@ -9,6 +9,7 @@ import com.ecomm.productservice.service.ProductSevice;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -29,7 +30,7 @@ public class ProductController {
     @Autowired
     private ProductSevice productService;
 
-
+    @PreAuthorize("hasAuthority('Admin')")
     @PostMapping("/")
     public ResponseEntity<Long> addProduct(@RequestBody ProductRequest productRequest){
 
@@ -38,7 +39,7 @@ public class ProductController {
 
     }
 
-
+    @PreAuthorize("hasAuthority('Admin') || hasAuthority('Customer') || hasAuthority('SCOPE_internal')")
     @GetMapping("/{id}")
     public ResponseEntity<ProductResponse> getProductById(@PathVariable("id") long productId  ){
 
